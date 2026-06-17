@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Letters to the Future</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: "Georgia", serif;
+}
+
+body{
+    background: linear-gradient(135deg,#fdf6f0,#ffe4e1);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    padding:20px;
+}
+
+h1{
+    margin-bottom:30px;
+    color:#6b3e3e;
+    text-align:center;
+}
+
+.envelope-container{
+    display:flex;
+    gap:40px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.envelope{
+    width:220px;
+    height:150px;
+    background:#E75480;
+    position:relative;
+    cursor:pointer;
+    transition:.3s;
+    border-radius:5px;
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+}
+
+.envelope:hover{
+    transform:translateY(-8px);
+}
+
+.envelope::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    border-left:110px solid transparent;
+    border-right:110px solid transparent;
+    border-top:75px solid #FFD1DC;
+}
+
+.label{
+    position:absolute;
+    width:100%;
+    text-align:center;
+    bottom:20px;
+    color:white;
+    font-weight:bold;
+    font-size:1.2rem;
+}
+
+.letter{
+    display:none;
+    max-width:800px;
+    background:white;
+    padding:30px;
+    margin-top:30px;
+    border-radius:15px;
+    box-shadow:0 15px 30px rgba(0,0,0,.15);
+    line-height:1.8;
+    color:#444;
+}
+
+.letter h2{
+    margin-bottom:15px;
+    color:#8b5e5e;
+}
+
+.close-btn{
+    margin-top:20px;
+    padding:10px 20px;
+    border:none;
+    background:#E75480;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.close-btn:hover{
+    background:#FFD1DC;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Letters To The Future ❤️</h1>
+
+<div class="envelope-container">
+
+    <div class="envelope" onclick="openLetter('him')">
+        <div class="label">For Him</div>
+    </div>
+
+    <div class="envelope" onclick="openLetter('her')">
+        <div class="label">For Her</div>
+    </div>
+
+</div>
+
+<div id="letter" class="letter"></div>
+
+<script>
+
+const letters = {
+
+him: `
+<h2>To The Man I Hope To Marry</h2>
+
+<p>
+I pray you are a man after God's heart. A man who knows how to pray,
+lead, and commit our family into God's hands.
+</p>
+
+<p>
+I hope you are kind, emotionally intelligent, and peaceful,
+yet strong enough to stand up for the people you love.
+A man who loves his parents and respects mine.
+</p>
+
+<p>
+I hope you are financially responsible, successful, and capable.
+Not because I want someone to rescue me, but because I desire
+a partner who is already building something meaningful.
+A man who can see my ideas and help turn them into reality who can take them from 1-100.
+</p>
+
+<p>
+I hope you are generous, protective, dependable, and loving.
+The kind of husband who holds my hand when life becomes difficult,
+prays with me when words fail, and reminds me to keep going.
+</p>
+
+<p>
+I hope we laugh together, dance together, cook together,
+take long walks, travel, paint, dream, and plan our future together.
+</p>
+
+<p>
+If one day I carry our children, I hope you see not only my changing body
+but also the sacrifice, courage, and love behind it.
+</p>
+
+<p>
+I hope you are my best friend, my safe place, my partner,
+and one of God's greatest gifts in my life.
+</p>
+
+<p>
+Until we meet, I am becoming the woman worthy of the love I desire.
+</p>
+
+<p><strong>Love,<br>Mimin ❤️</strong></p>
+`,
+
+her: `
+<h2>To Future Mimin</h2>
+
+<p>
+You asked God for a good man.
+Never forget to become a good woman too.
+Nwuye Odogwu. Mimin Pounds and Dollars.
+Odogwuress Herself
+Importer Exporter. Tech Entrepreneur.Businesswoman. Philanthropist. Speaker. Author.
+</p>
+
+<p>
+Continue growing in faith, wisdom, character, and grace.
+Build Awaji with excellence.
+Stay curious.
+Keep learning.
+Keep creating.
+Build AWAJI till you're bigger than Ibukun Awosika, Oprah, and Michelle combined.
+Till we speak at EU and Harvard. Till we have a foundation.
+</p>
+
+<p>
+Remember the girl who dreamed of owning land,
+building businesses, studying technology,
+and creating opportunities for others.
+Don't lose her.
+</p>
+
+<p>
+Be kind.
+Be disciplined.
+Protect your peace.
+Love deeply.
+Forgive wisely.
+Choose courage over fear.
+</p>
+
+<p>
+Continue becoming the woman who can support,
+encourage, and build alongside the husband she prayed for.
+</p>
+
+<p>
+Take care of your family.
+Honor God.
+Be generous.
+Be ambitious.
+Stay humble.
+</p>
+
+<p>
+And if life becomes difficult,
+remember that the younger version of you believed
+great things were possible.
+</p>
+
+<p>
+She was right.
+</p>
+
+<p><strong>Love,<br>Your Younger Self 🌸</strong></p>
+`
+
+};
+
+function openLetter(type){
+    const letter = document.getElementById("letter");
+    letter.innerHTML = letters[type] +
+    '<button class="close-btn" onclick="closeLetter()">Close Letter</button>';
+    letter.style.display = "block";
+    letter.scrollIntoView({behavior:'smooth'});
+}
+
+function closeLetter(){
+    document.getElementById("letter").style.display = "none";
+}
+
+</script>
+
+</body>
+</html>
