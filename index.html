@@ -114,6 +114,18 @@
     box-shadow:0 15px 40px rgba(0,0,0,.15);
     line-height:1.9;
     color:#444;
+     animation: fadeIn .8s ease;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 
 
@@ -193,6 +205,12 @@
 
 .gallery img:nth-child(even){
     transform:rotate(1deg);
+}
+
+.date{
+    color:#999;
+    font-style:italic;
+    margin-bottom:20px;
 }
 
 @media(max-width:768px){
@@ -357,6 +375,9 @@
 
             him: `
 <h2>To The Man I Hope To Marry</h2>
+<p class="date">
+17 June 2026
+</p>
 
 <p>
 I pray you are a man after God's heart. A man who knows how to pray,
@@ -406,6 +427,9 @@ Until we meet, I am becoming the woman worthy of the love I desire.
 
             her: `
 <h2>To Future Mimin</h2>
+<p class="date">
+17 June 2026
+</p>
 
 <p>
 You asked God for a good man.
@@ -475,9 +499,13 @@ Mimin Ukpatu
             discouraged: `
 <h2>Open When Discouraged</h2>
 
+<p class="date">
+17 June 2026
+</p>
+
 <p>
 
-Dear Mimin,
+Dear Egbe Awajimimin,
 
 If you are reading this,
 things probably didn't go exactly
@@ -584,7 +612,9 @@ Save
 
 kids: `
 <h2>To My Future Children 👶</h2>
-
+<p class="date">
+17 June 2026
+</p>
 <p>
 My dear children,
 
@@ -712,13 +742,35 @@ window.addEventListener("load", () => {
     });
 
 });
+
+window.onload = () => {
+    const saved =
+    localStorage.getItem("futureGoals");
+
+    if(saved){
+        document.getElementById(
+            "futureNotes"
+        ).value = saved;
+    }
+};
     </script>
-    <audio id="bgMusic" loop>
-        <source src="Dwin-feat-The-Stoic-Again-(CeeNaija.com).mp3" type="audio/mpeg">
-    </audio>
+    
 <audio id="bgMusic" autoplay loop>
     <source src="again.mp3" type="audio/mpeg">
 </audio>
+
+<section class="quotes">
+<h2>Words I Live By</h2>
+
+<p>
+"Commit your works to the Lord and your plans will succeed."
+</p>
+
+<p>
+"Small daily improvements become remarkable results."
+</p>
+
+</section>
 </body>
 
 </html>
