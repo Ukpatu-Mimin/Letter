@@ -1,132 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Letters to the Future</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letters to the Future</title>
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family: "Georgia", serif;
-}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Georgia", serif;
+        }
 
-body{
-    background: linear-gradient(135deg,#fdf6f0,#ffe4e1);
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    padding:20px;
-}
+        body {
+            background: linear-gradient(135deg, #fdf6f0, #ffe4e1);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
 
-h1{
-    margin-bottom:30px;
-    color:#6b3e3e;
-    text-align:center;
-}
+        h1 {
+            margin-bottom: 30px;
+            color: #6b3e3e;
+            text-align: center;
+        }
 
-.envelope-container{
-    display:flex;
-    gap:40px;
-    flex-wrap:wrap;
-    justify-content:center;
-}
+        .envelope-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 900px;
+            width: 100%;
+            margin: auto;
+        }
 
-.envelope{
-    width:220px;
-    height:150px;
-    background:#E75480;
-    position:relative;
-    cursor:pointer;
-    transition:.3s;
-    border-radius:5px;
-    box-shadow:0 10px 20px rgba(0,0,0,.15);
-}
 
-.envelope:hover{
-    transform:translateY(-8px);
-}
 
-.envelope::before{
-    content:"";
-    position:absolute;
-    top:0;
-    left:0;
-    border-left:110px solid transparent;
-    border-right:110px solid transparent;
-    border-top:75px solid #FFD1DC;
-}
+        .envelope {
+            width:300px;
+    height:220px;
 
-.label{
-    position:absolute;
-    width:100%;
-    text-align:center;
-    bottom:20px;
-    color:white;
-    font-weight:bold;
-    font-size:1.2rem;
-}
+            position: relative;
+            cursor: pointer;
+            perspective: 1000px;
+            transition: .4s;
+            margin: auto;
+        }
 
-.letter{
+        .envelope:hover {
+            transform: translateY(-10px);
+        }
+
+        .flap {
+            position: absolute;
+            width: 100%;
+            height: 75px;
+            background: #bc8a5f;
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            transform-origin: top;
+            transition: transform 0.8s ease;
+            z-index: 3;
+        }
+
+        .body {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #d4a373;
+            border-radius: 5px;
+        }
+
+        .envelope.open .flap {
+            transform: rotateX(180deg);
+        }
+
+        .envelope:hover {
+            transform: translateY(-8px);
+        }
+
+        .envelope::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-left: 110px solid transparent;
+            border-right: 110px solid transparent;
+            border-top: 75px solid #FFD1DC;
+        }
+
+        .label {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            bottom: 20px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        
+            .letter{
     display:none;
-    max-width:800px;
+    width:min(1400px,95vw);
     background:white;
-    padding:30px;
-    margin-top:30px;
-    border-radius:15px;
-    box-shadow:0 15px 30px rgba(0,0,0,.15);
-    line-height:1.8;
+    padding:50px;
+    margin-top:50px;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,.15);
+    line-height:1.9;
     color:#444;
 }
 
-.letter h2{
-    margin-bottom:15px;
-    color:#8b5e5e;
+
+        .letter h2 {
+            margin-bottom: 15px;
+            color: #8b5e5e;
+        }
+
+        .close-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            background: #E75480;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            background: #FFD1DC;
+        }
+
+
+        .seal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 55px;
+            height: 55px;
+            background: #8B0000;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.4rem;
+            z-index: 5;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .25);
+        }
+       .gallery{
+    width:100%;
+    max-width:1400px;
+    margin-top:60px;
+    padding:20px;
 }
 
-.close-btn{
-    margin-top:20px;
-    padding:10px 20px;
-    border:none;
-    background:#E75480;
-    color:white;
-    border-radius:8px;
-    cursor:pointer;
+.gallery h1{
+    text-align:center;
+    margin-bottom:30px;
 }
 
-.close-btn:hover{
-    background:#FFD1DC;
+.gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:25px;
+    width:100%;
 }
-</style>
+
+.gallery img,
+.gallery video{
+    width:100%;
+    height:320px;
+    object-fit:contain;
+    border-radius:20px;
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+    transition:.3s;
+}
+
+.gallery img:hover,
+.gallery video:hover{
+    transform:scale(1.03);
+}
+.gallery img:nth-child(odd){
+    transform:rotate(-1deg);
+}
+
+.gallery img:nth-child(even){
+    transform:rotate(1deg);
+}
+
+@media(max-width:768px){
+
+.envelope-container{
+    grid-template-columns:1fr;
+}
+
+.envelope{
+    width:260px;
+}
+
+.gallery-grid{
+    grid-template-columns:1fr;
+}
+
+.gallery img,
+.gallery video{
+    height:300px;
+    width:100%;
+}
+
+}
+
+        
+    </style>
 </head>
 
 <body>
 
-<h1>Letters To The Future ❤️</h1>
+    <h1>Letters To The Future ❤️</h1>
 
-<div class="envelope-container">
+    <div class="envelope-container">
 
-    <div class="envelope" onclick="openLetter('him')">
-        <div class="label">For Him</div>
+        <!-- FOR HIM -->
+        <div class="envelope" onclick="openLetter('him', this)">
+            <div class="flap"></div>
+            <div class="body"></div>
+            <div class="seal">💌</div>
+            <div class="label">For Him</div>
+        </div>
+
+        <!-- FOR HER -->
+        <div class="envelope" onclick="openLetter('her', this)">
+            <div class="flap"></div>
+            <div class="body"></div>
+            <div class="seal">🌸</div>
+            <div class="label">For Her</div>
+        </div>
+
+        <!-- 2030 -->
+        <div class="envelope" onclick="openLetter('future', this)">
+            <div class="flap"></div>
+            <div class="body"></div>
+            <div class="seal">🚀</div>
+            <div class="label">2030 Vision</div>
+        </div>
+
+        <!-- DISCOURAGED -->
+        <div class="envelope" onclick="openLetter('discouraged', this)">
+            <div class="flap"></div>
+            <div class="body"></div>
+            <div class="seal">❤️</div>
+            <div class="label">Open When Discouraged</div>
+        </div>
+
+        <!-- PRESENT -->
+        <div class="envelope" onclick="openLetter('present', this)">
+            <div class="flap"></div>
+            <div class="body"></div>
+            <div class="seal">📖</div>
+            <div class="label">Where I Am Today</div>
+        </div>
+
+      <div class="envelope" onclick="openLetter('kids', this)">
+    <div class="flap"></div>
+    <div class="body"></div>
+    <div class="seal">👶</div>
+    <div class="label">Future Children</div>
+</div>
+
     </div>
 
-    <div class="envelope" onclick="openLetter('her')">
-        <div class="label">For Her</div>
+
+
     </div>
+
+    <div id="letter" class="letter"></div>
+    <!-- <div class="seal">
+        ✉️
+    </div> -->
+<!-- 
+    <div class="envelope" onclick="openLetter('future', this)">
+
+
+
+    </div> -->
+
+   <section class="gallery">
+
+<h1>📸 My Journey</h1>
+
+<div class="gallery-grid">
+
+
+<img src="gallery/siloette.jpg">
+<img src="gallery/IMG_20260524_144235@-1059077737.jpg">
+<img src="gallery/IMG-20260125-WA0261.jpg">
+<img src="gallery/IMG-20250723-WA0046.jpg">
+
+<img src="gallery/IMG-20250817-WA0045.jpg">
+<img src="gallery/IMG-20250907-WA0144.jpg">
+<img src="gallery/IMG-20250915-WA0064.jpg">
+
+<img src="gallery/IMG-20251214-WA0063.jpg">
+
+<img src="gallery/IMG-20260127-WA0001.jpg">
+
+<img src="gallery/IMG-20260322-WA0070(1).jpg">
+<img src="gallery/IMG-20260414-WA0169.jpg">
+<img src="gallery/IMG-20260424-WA0131.jpg">
+
+<img src="gallery/IMG_20260524_144235@-1059077737.jpg">
+<img src="gallery/IMG-20260523-WA0006.jpg">
+
+
+<video controls>
+    <source src="gallery/VID-20251231-WA0088.mp4">
+</video>
+
+<video controls>
+    <source src="gallery/VID-20260113-WA0273.mp4">
+</video>
+
+<video controls>
+    <source src="gallery/VID-20260524-WA0128.mp4">
+</video>
+
+<video controls>
+    <source src="gallery/VID-20251010-WA0053.mp4">
+</video>
+
+<video controls>
+    <source src="gallery/VID-20260315-WA0019.mp4">
+</video>
+
+<video controls>
+    <source src="gallery/VID-20260404-WA0047.mp4">
+</video>
+
+<video controls>
+    <source src="gallery/VID-20260422-WA0102.mp4">
+</video>
 
 </div>
 
-<div id="letter" class="letter"></div>
+</section>
 
-<script>
+    <script>
 
-const letters = {
+        const letters = {
 
-him: `
+            him: `
 <h2>To The Man I Hope To Marry</h2>
 
 <p>
@@ -175,14 +404,14 @@ Until we meet, I am becoming the woman worthy of the love I desire.
 <p><strong>Love,<br>Mimin ❤️</strong></p>
 `,
 
-her: `
+            her: `
 <h2>To Future Mimin</h2>
 
 <p>
 You asked God for a good man.
 Never forget to become a good woman too.
 Nwuye Odogwu. Mimin Pounds and Dollars.
-Odogwuress Herself
+Odogwuress Herself.
 Importer Exporter. Tech Entrepreneur.Businesswoman. Philanthropist. Speaker. Author.
 </p>
 
@@ -233,26 +462,263 @@ great things were possible.
 
 <p>
 She was right.
+Love,
+
+Mimin Ukpatu
+17 June 2026
 </p>
 
+
 <p><strong>Love,<br>Your Younger Self 🌸</strong></p>
-`
+`,
 
-};
+            discouraged: `
+<h2>Open When Discouraged</h2>
 
-function openLetter(type){
-    const letter = document.getElementById("letter");
-    letter.innerHTML = letters[type] +
-    '<button class="close-btn" onclick="closeLetter()">Close Letter</button>';
-    letter.style.display = "block";
-    letter.scrollIntoView({behavior:'smooth'});
+<p>
+
+Dear Mimin,
+
+If you are reading this,
+things probably didn't go exactly
+according to plan.
+
+That's okay.
+
+Remember:
+
+You started with a dream.
+
+You built websites.
+
+You learned tech.
+
+You planned investments.
+
+You built Awaji.
+
+You believed.
+
+Do not stop now.
+
+The version of you reading this
+has survived every difficult day
+that younger Mimin worried about.
+
+Keep going.
+
+God is not done with your story.
+
+❤️
+
+</p>
+`,
+            present: `
+<h2>Where I Am Today</h2>
+
+<p>
+
+Date:
+17 June 2026
+
+Age:
+21
+
+Net Worth:
+₦1.85M
+
+Studying:
+Computer Engineering
+
+Business:
+Awaji
+
+Learning:
+React
+React Native
+Product Management
+Mobile App Development
+Ethical Hacking
+Pentesting
+Robotics/Embedded Systems
+
+Currently: 
+Ui/UX Designer
+Web Developer
+Interior Decorator
+Computer Engineering Student(GMNSE/ Engineer in View)
+
+
+Dream:
+Build Awaji Group
+Become a billionaire
+Become a speaker at big tech events and EU
+
+</p>
+`,
+            future: `
+<h2>2030 Vision</h2>
+
+<ul>
+<li>Own Land</li>
+<li>Grow Awaji Group</li>
+<li>Launch Awaji Living</li>
+<li>Launch Awaji Tech</li>
+<li>Launch Lunara</li>
+<li>Graduate</li>
+<li>Complete NYSC</li>
+<li>Build Portfolio</li>
+<li>Masters Degree</li>
+<li>Strong Relationship With God</li>
+</ul>
+
+<textarea
+id="futureNotes"
+placeholder="Add future goals..."
+></textarea>
+
+<button onclick="saveGoals()">
+Save
+</button>
+`,
+
+kids: `
+<h2>To My Future Children 👶</h2>
+
+<p>
+My dear children,
+
+If you are reading this, then God has blessed me with one of the greatest gifts of my life: you.
+</p>
+
+<p>
+Before I knew your names, before I saw your faces, I prayed for you.
+I prayed that you would grow in wisdom, kindness, courage, and faith.
+</p>
+
+<p>
+I hope I have been a mother who loved you deeply, listened carefully,
+and supported your dreams.
+</p>
+
+<p>
+I hope our home is filled with laughter, peace, prayer,
+good conversations, and beautiful memories.
+</p>
+
+<p>
+I want you to know that success is wonderful,
+but character matters more.
+Be honest.
+Be kind.
+Work hard.
+Love God.
+Respect people.
+</p>
+
+<p>
+Never be afraid to dream big.
+Your mother started with small dreams and a lot of faith.
+God carried me further than I imagined.
+</p>
+
+<p>
+I pray that when you read this,
+you know beyond doubt that you are loved.
+</p>
+
+<p>
+Love always,<br>
+Mum ❤️
+</p>
+`,
+
+        };
+function openLetter(type, element){
+
+    const music =
+    document.getElementById("bgMusic");
+
+    if(music.paused){
+
+        music.play().catch(() => {});
+
+    }
+
+    document.querySelectorAll('.envelope')
+    .forEach(env => env.classList.remove('open'));
+
+    element.classList.add('open');
+
+    setTimeout(() => {
+
+        const letter =
+        document.getElementById("letter");
+
+        letter.innerHTML =
+        letters[type] +
+        '<button class="close-btn" onclick="closeLetter()">Close</button>';
+
+        letter.style.display = "block";
+
+    }, 700);
+
 }
 
-function closeLetter(){
-    document.getElementById("letter").style.display = "none";
+        
+
+        function closeLetter() {
+            document.getElementById("letter").style.display = "none";
+        }
+
+        function saveGoals() {
+            localStorage.setItem(
+                "futureGoals",
+                document.getElementById("futureNotes").value
+            );
+        }
+        
+        function scrollToGallery(element){
+
+    document.querySelectorAll('.envelope')
+    .forEach(env => env.classList.remove('open'));
+
+    element.classList.add('open');
+
+    setTimeout(()=>{
+
+        document
+        .querySelector('.gallery')
+        .scrollIntoView({
+            behavior:'smooth'
+        });
+
+    },700);
 }
 
-</script>
+window.addEventListener("load", () => {
 
+    const music =
+    document.getElementById("bgMusic");
+
+    music.play()
+    .catch(error => {
+
+        console.log(
+            "Browser blocked autoplay:",
+            error
+        );
+
+    });
+
+});
+    </script>
+    <audio id="bgMusic" loop>
+        <source src="Dwin-feat-The-Stoic-Again-(CeeNaija.com).mp3" type="audio/mpeg">
+    </audio>
+<audio id="bgMusic" autoplay loop>
+    <source src="again.mp3" type="audio/mpeg">
+</audio>
 </body>
+
 </html>
